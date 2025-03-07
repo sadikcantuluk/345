@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initMobileMenu();
     initAnimations();
+    initTeamSlider();
 });
 
 /**
@@ -155,4 +156,81 @@ function initMobileMenu() {
 function initAnimations() {
     // Scroll ile açığa çıkan animasyonlar burada eklenebilir
     // Gelecekteki geliştirmeler için yer tutucu
+}
+
+// Ekip Üyeleri Slider
+function initTeamSlider() {
+    const teamSlider = document.querySelector('.team-slider');
+    const teamPrevBtn = document.querySelector('.team-prev-btn');
+    const teamNextBtn = document.querySelector('.team-next-btn');
+    let teamCurrentSlide = 0;
+    const teamTotalSlides = document.querySelectorAll('.team-card').length;
+    const teamSlidesPerView = window.innerWidth >= 768 ? 3 : 1;
+    const teamMaxSlide = Math.ceil(teamTotalSlides / teamSlidesPerView) - 1;
+
+    function updateTeamSlider() {
+        const slideWidth = document.querySelector('.team-card').offsetWidth + 16; // card width + margin
+        teamSlider.style.transform = `translateX(-${teamCurrentSlide * slideWidth * teamSlidesPerView}px)`;
+    }
+
+    function nextSlide() {
+        if (teamCurrentSlide < teamMaxSlide) {
+            teamCurrentSlide++;
+        } else {
+            // Sona geldiğinde başa dön
+            teamCurrentSlide = 0;
+        }
+        updateTeamSlider();
+    }
+
+    function prevSlide() {
+        if (teamCurrentSlide > 0) {
+            teamCurrentSlide--;
+        } else {
+            // Başa geldiğinde sona git
+            teamCurrentSlide = teamMaxSlide;
+        }
+        updateTeamSlider();
+    }
+
+    teamPrevBtn.addEventListener('click', () => {
+        prevSlide();
+        // Kullanıcı tıkladığında otomatik kaydırmayı sıfırla
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    });
+
+    teamNextBtn.addEventListener('click', () => {
+        nextSlide();
+        // Kullanıcı tıkladığında otomatik kaydırmayı sıfırla
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    });
+
+    // Otomatik kaydırma için interval başlat (5 saniyede bir)
+    let autoSlideInterval = setInterval(nextSlide, 5000);
+
+    // Mouse slider üzerine geldiğinde otomatik kaydırmayı durdur
+    teamSlider.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+    });
+
+    // Mouse slider üzerinden ayrıldığında otomatik kaydırmayı tekrar başlat
+    teamSlider.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    });
+
+    // Responsive handling
+    window.addEventListener('resize', () => {
+        const newSlidesPerView = window.innerWidth >= 768 ? 3 : 1;
+        if (newSlidesPerView !== teamSlidesPerView) {
+            teamCurrentSlide = 0;
+            updateTeamSlider();
+        }
+    });
+
+    // Sayfa kapatıldığında interval'i temizle
+    window.addEventListener('beforeunload', () => {
+        clearInterval(autoSlideInterval);
+    });
 }
