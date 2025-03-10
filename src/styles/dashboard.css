@@ -1,0 +1,99 @@
+/* Dashboard Styles */
+
+/* Sidebar kapalı durumda */
+.sidebar-collapsed #sidebar {
+    transform: translateX(-256px);
+}
+
+.sidebar-collapsed #main-content,
+.sidebar-collapsed footer {
+    padding-left: 0;
+}
+
+/* Smooth transitions */
+#sidebar,
+#main-content,
+footer {
+    will-change: transform, padding;
+}
+
+/* Hover efektleri */
+.hover-lift {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Kullanıcı menüsü dropdown */
+.user-menu-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    min-width: 200px;
+    z-index: 50;
+}
+
+.user-menu-dropdown.active {
+    display: block;
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-256px);
+    }
+
+    #main-content,
+    footer {
+        padding-left: 0;
+    }
+
+    .sidebar-active #sidebar {
+        transform: translateX(0);
+    }
+
+    .sidebar-active .sidebar-overlay {
+        display: block;
+    }
+}
+
+/* Sidebar overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+}
+
+/* Card stilleri */
+.dashboard-card {
+    transition: all 0.3s ease-in-out;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Progress bar stilleri */
+.progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease-in-out;
+} 
