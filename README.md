@@ -23,21 +23,6 @@ HTML, Tailwind CSS, Bootstrap ve JavaScript kullanılarak oluşturulan frontend 
 └── index.html            # Giriş noktası
 ```
 
-## Kurulum Talimatları
-
-1. Bu depoyu klonlayın
-2. index.html dosyasını tarayıcınızda açın
-3. Geliştirmeye başlayın!
-
-## Özellikler
-
-- Düzenli klasör yapısı
-- İlgilerin ayrılması prensibi
-- Bileşen tabanlı mimari
-- Tailwind ile öncelikli CSS kullanımı
-- Bootstrap entegrasyonu
-- Modern JavaScript uygulamaları
-
 ## Teknolojiler
 
 - HTML5
